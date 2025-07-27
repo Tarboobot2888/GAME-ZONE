@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شحن الألعاب - GameZone</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/recharge.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <svg class="logo-svg" width="40" height="40" viewBox="0 0 40 40">
+                    <path class="logo-path" d="M20 2L37 12v16L20 38L3 28V12L20 2z" stroke="#00d4ff" stroke-width="2" fill="none"/>
+                    <circle class="logo-circle" cx="20" cy="20" r="8" stroke="#ff6b35" stroke-width="2" fill="none"/>
+                </svg>
+                <span class="brand-text">GameZone</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">الرئيسية</a>
+                <a href="#" class="nav-link active">شحن الألعاب</a>
+                <a href="accounts.html" class="nav-link">بيع الحسابات</a>
+                <a href="#contact" class="nav-link">اتصل بنا</a>
+            </div>
+            <div class="nav-auth">
+                <button class="btn-login" id="loginBtn">تسجيل الدخول</button>
+                <div class="user-menu hidden" id="userMenu">
+                    <img class="user-avatar" id="userAvatar" src="/placeholder.svg" alt="User">
+                    <span class="user-name" id="userName"></span>
+                    <div class="dropdown">
+                        <a href="dashboard.html">لوحة التحكم</a>
+                        <a href="#" id="logoutBtn">تسجيل الخروج</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Recharge Section -->
+    <section class="recharge-section">
+        <div class="container">
+            <div class="recharge-header">
+                <h1 class="page-title fade-in">شحن الألعاب</h1>
+                <p class="page-subtitle fade-in-delay">اختر لعبتك المفضلة واشحن بأفضل الأسعار</p>
+            </div>
+
+            <div class="recharge-content">
+                <!-- Game Selection -->
+                <div class="game-selection slide-up">
+                    <h2>اختر اللعبة</h2>
+                    <div class="games-grid" id="gamesGrid">
+                        <!-- Games will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Selected Game Details -->
+                <div class="selected-game hidden" id="selectedGameSection">
+                    <div class="game-details-card">
+                        <div class="game-image-container">
+                            <img id="selectedGameImage" src="/placeholder.svg" alt="" class="selected-game-image">
+                            <div class="game-overlay">
+                                <h3 id="selectedGameTitle"></h3>
+                                <p id="selectedGameDescription"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recharge Form -->
+                <div class="recharge-form hidden" id="rechargeForm">
+                    <div class="form-card">
+                        <h3>تفاصيل الشحن</h3>
+                        
+                        <!-- Package Selection -->
+                        <div class="form-group">
+                            <label>اختر الباقة</label>
+                            <div class="packages-grid" id="packagesGrid">
+                                <!-- Packages will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- User Info -->
+                        <div class="form-group">
+                            <label for="playerId">معرف اللاعب</label>
+                            <input type="text" id="playerId" placeholder="أدخل معرف اللاعب" required>
+                            <small class="form-help">يمكنك العثور على معرف اللاعب في إعدادات اللعبة</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="playerName">اسم اللاعب (اختياري)</label>
+                            <input type="text" id="playerName" placeholder="أدخل اسم اللاعب">
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف</label>
+                            <input type="tel" id="phone" placeholder="أدخل رقم هاتفك" required>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="form-group">
+                            <label>طريقة الدفع</label>
+                            <div class="payment-methods">
+                                <div class="payment-method" data-method="visa">
+                                    <svg width="40" height="25" viewBox="0 0 40 25">
+                                        <rect width="40" height="25" rx="4" fill="#1a1f71"/>
+                                        <text x="20" y="16" text-anchor="middle" fill="white" font-size="8">VISA</text>
+                                    </svg>
+                                    <span>فيزا</span>
+                                </div>
+                                <div class="payment-method" data-method="mastercard">
+                                    <svg width="40" height="25" viewBox="0 0 40 25">
+                                        <rect width="40" height="25" rx="4" fill="#eb001b"/>
+                                        <circle cx="15" cy="12.5" r="8" fill="#ff5f00"/>
+                                        <circle cx="25" cy="12.5" r="8" fill="#f79e1b"/>
+                                    </svg>
+                                    <span>ماستركارد</span>
+                                </div>
+                                <div class="payment-method" data-method="mada">
+                                    <svg width="40" height="25" viewBox="0 0 40 25">
+                                        <rect width="40" height="25" rx="4" fill="#00a651"/>
+                                        <text x="20" y="16" text-anchor="middle" fill="white" font-size="6">mada</text>
+                                    </svg>
+                                    <span>مدى</span>
+                                </div>
+                                <div class="payment-method" data-method="stc">
+                                    <svg width="40" height="25" viewBox="0 0 40 25">
+                                        <rect width="40" height="25" rx="4" fill="#662d91"/>
+                                        <text x="20" y="16" text-anchor="middle" fill="white" font-size="6">STC PAY</text>
+                                    </svg>
+                                    <span>STC Pay</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order Summary -->
+                        <div class="order-summary">
+                            <h4>ملخص الطلب</h4>
+                            <div class="summary-row">
+                                <span>اللعبة:</span>
+                                <span id="summaryGame">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>الباقة:</span>
+                                <span id="summaryPackage">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>السعر:</span>
+                                <span id="summaryPrice">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>الضريبة (15%):</span>
+                                <span id="summaryTax">-</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>المجموع:</span>
+                                <span id="summaryTotal">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-large" id="submitOrder">
+                            <span class="btn-text">إتمام الطلب</span>
+                            <span class="btn-loading hidden">
+                                <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+                                        <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+                                        <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+                                    </circle>
+                                </svg>
+                                جاري المعالجة...
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">
+                <svg width="60" height="60" viewBox="0 0 60 60">
+                    <circle cx="30" cy="30" r="25" stroke="#00d4ff" stroke-width="3" fill="none"/>
+                    <path d="M18 30l8 8 16-16" stroke="#00d4ff" stroke-width="3" fill="none"/>
+                </svg>
+            </div>
+            <h2>تم إتمام الطلب بنجاح!</h2>
+            <p>سيتم تنفيذ طلبك خلال 5-10 دقائق</p>
+            <div class="order-details">
+                <p><strong>رقم الطلب:</strong> <span id="orderNumber"></span></p>
+                <p><strong>المبلغ المدفوع:</strong> <span id="paidAmount"></span></p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="window.location.href='dashboard.html'">عرض طلباتي</button>
+                <button class="btn btn-outline" onclick="window.location.href='../index.html'">العودة للرئيسية</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="module" src="../../firebase/firebase-config.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/recharge.js"></script>
+</body>
+</html>
